@@ -66,7 +66,11 @@ function botaoDeleta(id) {
     elementoBotao.innerText = "X";
 
     elementoBotao.addEventListener("click", function () {
-        deletaElemento(this.parentNode, id)
+        
+        if (confirm("Deseja excluir este item?")){
+            deletaElemento(this.parentNode, id)
+        }
+        
     })
 
     return elementoBotao;
