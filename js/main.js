@@ -24,9 +24,9 @@ formulario.addEventListener('submit', (evento) => {
 
         atualizaElemento(itemAtual);
 
-        itens[itemExiste.id] = itemAtual
+        itens[itens.findIndex(elemento => elemento.id === itemExiste.id)] = itemAtual
     } else {
-        itemAtual.id = itens.length;
+        itemAtual.id = itens[itens.length - 1] ? (itens[itens.length - 1]).id + 1 : 0;
 
         criaElemento(itemAtual);
 
@@ -52,26 +52,30 @@ function criaElemento(ObjItem) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += ObjItem.nome;
 
-    novoItem.appendChild(botaoDeleta());
+    novoItem.appendChild(botaoDeleta(ObjItem.id));
 
     lista.appendChild(novoItem);
 }
 
-function atualizaElemento(ObjItem){
-    document.querySelector("[data-id='"+ObjItem.id+"']").innerHTML = ObjItem.quantidade;
+function atualizaElemento(ObjItem) {
+    document.querySelector("[data-id='" + ObjItem.id + "']").innerHTML = ObjItem.quantidade;
 }
 
-function botaoDeleta(){
+function botaoDeleta(id) {
     const elementoBotao = document.createElement("button");
     elementoBotao.innerText = "X";
 
-    elementoBotao.addEventListener("click", function() {
-        deletaElemento(this.parentNode)
+    elementoBotao.addEventListener("click", function () {
+        deletaElemento(this.parentNode, id)
     })
 
     return elementoBotao;
 }
 
-function deletaElemento(tag){
+function deletaElemento(tag, id) {
     tag.remove();
+
+    itens.splice(itens.findIndex(elemento => elemento.id === id), 1)
+
+    localStorage.setItem("itens", JSON.stringify(itens));
 }
