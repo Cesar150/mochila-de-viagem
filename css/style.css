@@ -149,7 +149,12 @@ body {
     font-weight: 400;
     margin-right: 0.5rem;
 }
-
+.item button {
+    margin-left: 0.5rem;
+    padding: 0.1rem;
+    color: white;
+    background-color: red;
+}
 @media screen and (max-device-width: 700px) {
     body {
         display: flex;

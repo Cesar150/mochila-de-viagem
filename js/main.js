@@ -52,9 +52,26 @@ function criaElemento(ObjItem) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += ObjItem.nome;
 
+    novoItem.appendChild(botaoDeleta());
+
     lista.appendChild(novoItem);
 }
 
 function atualizaElemento(ObjItem){
     document.querySelector("[data-id='"+ObjItem.id+"']").innerHTML = ObjItem.quantidade;
+}
+
+function botaoDeleta(){
+    const elementoBotao = document.createElement("button");
+    elementoBotao.innerText = "X";
+
+    elementoBotao.addEventListener("click", function() {
+        deletaElemento(this.parentNode)
+    })
+
+    return elementoBotao;
+}
+
+function deletaElemento(tag){
+    tag.remove();
 }
